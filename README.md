@@ -29,26 +29,42 @@ Training went on for **10** epochs with a **batch size** of 32
 
 | Task                        | Loss  | Accuracy |
 |-----------------------------|-------|----------|
-| Cifar 10                    | 3.589 | 0.0978   |
-| Cifar 9                     | 2.171 | 0.133    |
-| Cifar 9 Truck as Automobile | 2.197 | 0.1      |
-| Cifar 9 Truck as Bird       | 2.163 | 0.2      |
+| Cifar 10                    | 1.135 | 0.628100 |
+| Cifar 9                     | 1.102 | 0.623444 |
+| Cifar 9 Truck as Automobile | 1.08  | 0.655300 |
+| Cifar 9 Truck as Bird       | 1.063 | 0.632900 |
+
+
+#### Cifar 10
+
+![Cifar10 Loss](plots/cifar10_plot.png)
 
 #### Cifar 9
 
-It makes sense, that the **loss** went down when the network has to classify one class less because it can focus the weight adaptation in a better way for these 9 classes compared to when it has another class to classify.
+![Cifar9 Loss](plots/cifar9_plot.png)
 
-But at the same time the **accuracy** went down which I find odd to be honest.
 
-#### Cifar 9 with Truck as Automobile
+Both **loss** and **accuracy** changed only very slighly. The training set is relatively small (In the world of *Deep Learning* that is). Theortically the network should perform better if it has less classes to distinguish, but in this case it doesn't make a big difference.
 
-The **loss** went slightly up when I labeled *Truck* as *automobile*. Naturally Trucks are a kind of automobile so I would assume they have a lot of visual features in common (at least to me as a human), such as tires and windows for example.
+#### Cifar 9 with Truck labeled as Automobile
 
-The **accuracy** went down again on this one which kind of makes sense since we have more training examples for one specific class. Given that *Trucks* and *Autombiles* have a lot of visual features in common from the networks perspective, we tend to overfit on that class. At the same time we make it more ambigious because we add a wider variaty of features to that class.
+![Cifar9 Truck as Automobile Loss](plots/cifar9_truck_as_automobile_plot.png)
 
-#### Cifar 9 with Truck as Bird
+The **loss** went down slightly which indicates a better performance of the model, but hte difference is so small it's negelectible.
 
-Now *Trucks* and *Birds* should really have nothing in common, but surprisingly the **Loss** went down and the **Accuracy** went up. To be honest, I have no explanation to this.
+If we look at the **accuracy** we can see, that it went up by about *3%*. **Trucks** and **Automobiles** should have a lot of visual features in common so up to a certain point it makes sense to treat them as the same class and as we can see, it didn't worsen the network, but it didn't improve it that much either.
+
+It is notworthy though that this one had the **highest accuracy** of all 4 experiments.
+
+
+
+#### Cifar 9 with Truck labeled as Bird
+
+![Cifar9 Truck as Bird Loss](plots/cifar9_truck_as_bird_plot.png)
+
+Now *Trucks* and *Birds* should really have nothing in common, but surprisingly the **Loss** went down slighty and even the **accuracy** is higher when compared to the *Cifar9* version but still below the one, where **Trucks** were labeled as **Automobiles**.
+
+I would've expected this one to perform the worst since it doesn't make sense at all to label **Trucks** as **Bids**, but surprisingly it performed on par if not even slightly better than the rest.
 
 ## Running
 
@@ -66,6 +82,7 @@ The **Cifar10** dataset will be downloaded when you first run one of the python 
 
 * [Keras](https://keras.io/)
 * [TensorFlow](https://www.tensorflow.org)
+* [Matplotlib](https://matplotlib.org)
 * [Cifar10](https://www.cs.toronto.edu/~kriz/cifar.html)
 * [LeNet5](http://yann.lecun.com/exdb/lenet/)
 * [Yan LeCun](http://yann.lecun.com)
