@@ -40,7 +40,7 @@ model.add(Dense(120, activation='relu'))
 # 84 Fully Connected Layer
 model.add(Dense(86, activation='relu'))
 # 10 Output
-model.add(Dense(9, activation='relu'))
+model.add(Dense(9, activation='softmax'))
 
 # compile the model
 model.compile(optimizer=optimizers.sgd(lr=0.01, momentum=0.9),

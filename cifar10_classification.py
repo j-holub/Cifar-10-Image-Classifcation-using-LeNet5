@@ -13,7 +13,6 @@ import numpy as np
 # get the training and test data
 (input_train, output_train), (input_test, output_test) = cifar10.load_data()
 
-
 # creating the basic model
 model = Sequential()
 
@@ -32,7 +31,7 @@ model.add(Dense(120, activation='relu'))
 # 84 Fully Connected Layer
 model.add(Dense(86, activation='relu'))
 # 10 Output
-model.add(Dense(10, activation='relu'))
+model.add(Dense(10, activation='softmax'))
 
 # compile the model
 model.compile(optimizer=optimizers.sgd(lr=0.01, momentum=0.9),
@@ -40,8 +39,9 @@ model.compile(optimizer=optimizers.sgd(lr=0.01, momentum=0.9),
               metrics=['accuracy'])
 
 # train the model
-model.fit(input_train, to_categorical(output_train), epochs=10, batch_size=32)
+model.fit(input_train/255, to_categorical(output_train), epochs=10, batch_size=32)
+
 
 # test
-score = model.evaluate(input_test, to_categorical(output_test), batch_size=32)
+score = model.evaluate(input_test/255, to_categorical(output_test), batch_size=32)
 print(score)
