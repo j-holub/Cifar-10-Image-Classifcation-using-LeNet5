@@ -1,14 +1,19 @@
-# Network
+# Keras
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPool2D, Dense, Flatten
 from keras.utils.np_utils import to_categorical
 from keras import optimizers
 
-
-# Data
 from keras.datasets import cifar10
 
+# NumPy
 import numpy as np
+
+# Python Std Lib
+import os
+
+# User Lib
+import lib.plot as plot
 
 # get the training and test data
 (input_train, output_train), (input_test, output_test) = cifar10.load_data()
@@ -48,8 +53,16 @@ model.compile(optimizer=optimizers.sgd(lr=0.01, momentum=0.9),
               metrics=['accuracy'])
 
 # train the model
-model.fit(input_train, to_categorical(output_train), epochs=10, batch_size=32)
+history = model.fit(input_train, to_categorical(output_train), epochs=10, batch_size=32)
 
 # test
 score = model.evaluate(input_test, to_categorical(output_test), batch_size=32)
-print(score)
+
+# print test set results
+print("Testset Loss: %f" % score[0])
+print("Testset Accuracy: %f" % score[1])
+
+# Plot the history
+os.makedirs(os.path.join(os.path.dirname(os.path.realpath(__file__)), "plots"), exist_ok=True)
+plot.plot_training_loss(history, show=False, save_file="plots/cifar9_truck_as_automobile_loss.png")
+plot.plot_training_accuracy(history, show=False, save_file="plots/cifar9_truck_as_automobile_accuracy.png")
